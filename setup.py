@@ -7,10 +7,22 @@ except ImportError:
 
 NAME = "NumRep"
 
+import re
+
+vre = re.compile(r"Version: (\d\.\d\.\d\.\d)")
 def read_file(fil):
     with open(fil) as f:
         a = f.read()
     return a
+
+def getversion():
+    version = []
+    fil = read_file('README.rst')
+    ver = vre.search(fil)
+    vers = ver.group(1)
+    for x in vers.split('.'):
+        version.append(int(x))
+    return version
 
 dct = dict(
     name=NAME,
@@ -39,5 +51,5 @@ dct = dict(
     'Topic :: Utilities',
     ],
     )
-
-setup(**dct)
+if __name__ == '__main__':
+    setup(**dct)

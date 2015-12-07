@@ -17,39 +17,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-import sys
+import setup
+vre = setup.vre
 
-def getpypi():
-    import os
-    import os.path
-    PY2 = sys.version[0] == "2"
-    if PY2:
-        import urllib2 as reqa
-    else:
-        import urllib.request as reqa
-    req = reqa.Request(os.environ["PYPI"],None, None)
-    print("Downloading .pypirc file")
-    res = reqa.urlopen(req)
-    page = res.read()
-    home = os.path.expanduser('~')
-    pth = os.path.join(home,'.pypirc')
-    with open(pth) as f:
-        f.write(page)
-    print("Wrote .pypirc file")
+def write_version(fl,vrs):
+    for x,y in enumerate(vrs):
+        vrs[x] = str(y)
+    vers = ".".join(vrs)
+    version = "Version: {0}".format(vers)
+    fl = vre.sub(version,fl)
+    return fl
+
+def do():
+    readme = setup.read_file('README.rst')
+    version = setup.getversion()
+    version[-1] += 1
+    new = write_version(readme,version)
+    with open('README.rst','w') as f:
+        f.write(new)
 
 if __name__ == '__main__':
-    import doctest
-    import NumRep
-    err, test = doctest.testmod(m=NumRep,verbose=True)
-    if err > 0:
-        sys.exit(1)
-    else:
-        print()
-        getpypi()
-        print()
-        print("All tests passed!")
-        sys.exit(0)
-
-else:
-    sys.stderr.write('Can be only run as a single program\n')
-    sys.exit(1)
+    do()
