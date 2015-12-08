@@ -4,7 +4,7 @@ NumRep
 .. image:: https://travis-ci.org/necessary129/NumRep.svg
     :target: https://travis-ci.org/necessary129/NumRep
 
-Version: 0.0.1.1
+Version: 0.1
 
 This module provides a way to represent the place values in a given number, eg:
     >>> a = NumRep(1234456789123)
@@ -38,6 +38,18 @@ You can also do arithmetic operations on them and then use GetRep(), eg:
     NumRep(Crores=12,Lakhs=34,Thousands=56,Hundreds=7,Tens=8,Ones=9)
     >>> (a.crores - 2).GetRep()
     NumRep(Tens=1)
+
+You can compare and do arithmetic operations NumReps with integers and also with other NumReps, like:
+    >>> c = NumRep.NumRep(15)
+    >>> c
+    NumRep(Tens=1,Ones=5)
+    >>> c + 10
+    NumRep(Tens=2,Ones=5)
+    >>> b = NumRep.NumRep(10)
+    >>> b
+    NumRep(Tens=1)
+    >>> c + b
+    NumRep(Tens=2,Ones=5)
 
 This raises TypeError when you give a non-number to it., eg:
     >>> a = NumRep('notanumber123')

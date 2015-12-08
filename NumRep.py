@@ -17,26 +17,26 @@
 
 """
 This module provides a class to represent the place vaues in a given number, eg:
-    >>> a = NumRep(1234456789123)
-    >>> a
-    NumRep(Crores=123445,Lakhs=67,Thousands=89,Hundreds=1,Tens=2,Ones=3)
-    >>> a.crores
-    123445
-    >>> a.ones
-    3
+        >>> a = NumRep(1234456789123)
+        >>> a
+        NumRep(Crores=123445,Lakhs=67,Thousands=89,Hundreds=1,Tens=2,Ones=3)
+        >>> a.crores
+        123445
+        >>> a.ones
+        3
 
     This raises TypeError when you give a non-number to it.
     eg:
-    >>> a = NumRep('notanumber123')
-    Traceback (most recent call last):
-      ...
-    TypeError: Not a valid number
+        >>> a = NumRep('notanumber123')
+        Traceback (most recent call last):
+            ...
+        TypeError: Not a valid number
 
     This class also provides an all() function, which gives you the real value of the given denomination, 
     eg:
-    >>> a = NumRep(1234456789123)
-    >>> a.all(HUNDREDS)
-    12344567891
+        >>> a = NumRep(1234456789123)
+        >>> a.all(HUNDREDS)
+        12344567891
 """
 
 HUNDREDS = 'hundreds'
@@ -46,101 +46,104 @@ ONES = 'ones'
 LAKHS = 'lakhs'
 CRORES = 'crores'
 
+def calc(conv):
+    def dec(cls):
+        funcs = ['__add__','__sub__','__mul__','__radd__','__rsub__','__rmul__','__floordiv__','__truediv__','__mod__','__divmod__']
+        for f in funcs:
+            def func(fff):
+                def gen(self, other):
+                    ret = getattr(conv(self),fff)(other)
+                    return cls(ret)
+                return gen
+            setattr(cls, f, func(f))
+        return cls
+    return dec
+
+def abpos():
+    def dec(cls):
+        funcs = ['__neg__','__pos__','__abs__']
+        for f in funcs:
+            def func(f):
+                def gen(self):
+                    ret = getattr(int(self),f)()
+                    return cls(ret)
+                return gen
+            setattr(cls, f, func(f))
+        return cls
+    return dec
+
+@calc(int)
 class RepNum(int):
     def GetRep(self):
         return NumRep(self)
-    def __sub__(self, other):
-        ret = int(self).__sub__(other)
-        return RepNum(ret)
-    def __add__(self, other):
-        ret = int(self).__add__(other)
-        return RepNum(ret)
-    def __neg__(self):
-        ret = int(self).__neg__()
-        return RepNum(ret)
-    def __mul__(self, other):
-        ret = int(self).__mul__(other)
-        return RepNum(ret)
-    def __floordiv__(self, other):
-        ret = int(self).__floordiv__(other)
-        return RepNum(ret)
-    def __truediv__(self, other):
-        ret = int(self).__truediv__(other)
-        return RepNum(ret)
-    def __mod__(self, other):
-        ret = int(self).__mod__(other)
-        return RepNum(ret)
-    def __divmod__(self, other):
-        ret = int(self).__divmod__(other)
-        return RepNum(ret)
-    def __pos__(self):
-        ret = int(self).__pos__()
-        return RepNum(ret)
-    def __abs__(self):
-        ret = int(self).__abs__()
-        return RepNum(ret)
-    def __rsub__(self, other):
-        ret = int(self).__rsub__(other)
-        return RepNum(ret)
-    def __radd__(self, other):
-        ret = int(self).__radd__(other)
-        return RepNum(ret)
-    def __rmul__(self, other):
-        ret = int(self).__rmul__(other)
-        return RepNum(ret)
 
 
-class NumRep(object):
+@calc(int)
+class NumRep(int):
     """
     This class provides a way to represent the place values in a given number, eg:
-    >>> a = NumRep(1234456789123)
-    >>> a
-    NumRep(Crores=123445,Lakhs=67,Thousands=89,Hundreds=1,Tens=2,Ones=3)
-    >>> a.crores
-    123445
-    >>> a.ones
-    3
-    >>> a.hundreds
-    1
-    >>> a.tens
-    2
-    >>> a.lakhs
-    67
+        >>> a = NumRep(1234456789123)
+        >>> a
+        NumRep(Crores=123445,Lakhs=67,Thousands=89,Hundreds=1,Tens=2,Ones=3)
+        >>> a.crores
+        123445
+        >>> a.ones
+        3
+        >>> a.hundreds
+        1
+        >>> a.tens
+        2
+        >>> a.lakhs
+        67
 
     And Every integer in the NumRep has a GetRep() method, which returns the Representation of the number itself,
     eg:
-    >>> a = NumRep(123456789)
-    >>> a
-    NumRep(Crores=12,Lakhs=34,Thousands=56,Hundreds=7,Tens=8,Ones=9)
-    >>> a.crores
-    12
-    >>> a.crores.GetRep()
-    NumRep(Tens=1,Ones=2)
-    >>> a.crores.GetRep().tens.GetRep()
-    NumRep(Ones=1)
+        >>> a = NumRep(123456789)
+        >>> a
+        NumRep(Crores=12,Lakhs=34,Thousands=56,Hundreds=7,Tens=8,Ones=9)
+        >>> a.crores
+        12
+        >>> a.crores.GetRep()
+        NumRep(Tens=1,Ones=2)
+        >>> a.crores.GetRep().tens.GetRep()
+        NumRep(Ones=1)
+
+    You can compare and do arithmetic operations NumReps with integers and also with other NumReps, like:
+        >>> c = NumRep.NumRep(15)
+        >>> c
+        NumRep(Tens=1,Ones=5)
+        >>> c + 10
+        NumRep(Tens=2,Ones=5)
+        >>> b = NumRep.NumRep(10)
+        >>> b
+        NumRep(Tens=1)
+        >>> c + b
+        NumRep(Tens=2,Ones=5)
+
 
     You can also do arithmetic operations on them and then use GetRep()
     eg:
-    >>> a = NumRep(123456789)
-    >>> a
-    NumRep(Crores=12,Lakhs=34,Thousands=56,Hundreds=7,Tens=8,Ones=9)
-    >>> (a.crores - 2).GetRep()
-    NumRep(Tens=1)
+        >>> a = NumRep(123456789)
+        >>> a
+        NumRep(Crores=12,Lakhs=34,Thousands=56,Hundreds=7,Tens=8,Ones=9)
+        >>> (a.crores - 2).GetRep()
+        NumRep(Tens=1)
 
     This raises TypeError when you give a non-number to it.
     eg:
-    >>> a = NumRep('notanumber123')
-    Traceback (most recent call last):
-      ...
-    TypeError: Not a valid number
+        >>> a = NumRep('notanumber123')
+        Traceback (most recent call last):
+            ...
+        TypeError: Not a valid number
 
     This class also provides an all() function, which gives you the real value of the given denomination, 
     eg:
-    >>> a = NumRep(1234456789123)
-    >>> a.all('hundreds')
-    12344567891
-    >>> a.all(HUNDREDS)
-    12344567891
+        >>> a = NumRep(1234456789123)
+        >>> a.all('hundreds')
+        12344567891
+        >>> a.all(HUNDREDS)
+        12344567891
+
 
     """
     __lens = lens = dict(
@@ -152,9 +155,10 @@ class NumRep(object):
     ones = 9,
     )
     def __init__(self, num):
+        
         try:
             num = RepNum(num)
-        except Exception:
+        except (ValueError, TypeError):
             raise TypeError("Not a valid number")
         self.number = RepNum(num)
         self.crores = RepNum(0)
@@ -197,6 +201,7 @@ class NumRep(object):
         if self.ones:
             li.append("Ones={0}".format(self.ones))
         self.__li = li
+        super().__init__()
     def all(self, digit):
         """
         This function returns the original value of the specified denomination in the number specified,
