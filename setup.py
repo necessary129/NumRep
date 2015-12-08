@@ -26,7 +26,7 @@ def getversion():
 
 dct = dict(
     name=NAME,
-    version='0.0.1',
+    version=getversion(),
     description='A module to represent numbers by their place value.',
     long_description=read_file("README.rst"),
     keywords='number representation order place value denomination',
