@@ -3,7 +3,6 @@ NumRep
 
 .. image:: https://travis-ci.org/necessary129/NumRep.svg
     :target: https://travis-ci.org/necessary129/NumRep
-.. image:: https://coveralls.io/repos/necessary129/NumRep/badge.svg?branch=master&service=github :target: https://coveralls.io/github/necessary129/NumRep?branch=master
 
 Version: 0.0.1.1
 

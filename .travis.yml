@@ -3,15 +3,12 @@ sudo: false
 
 python:
   - "2.7"
+  - "3.2"
   - "3.3"
   - "3.4"
 
-install:
-    - "pip install coveralls"
 
 script: 
-    - "coverage run test.py"
-    - "coverage run setup.py check --strict --metadata"
+    - "python test.py"
+    - "python setup.py check --strict --metadata"
 
-after_success:
-  - "coveralls"
