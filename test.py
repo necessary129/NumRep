@@ -19,24 +19,6 @@
 
 import sys
 
-def getpypi():
-    import os
-    import os.path
-    PY2 = sys.version[0] == "2"
-    if PY2:
-        import urllib2 as reqa
-    else:
-        import urllib.request as reqa
-    req = reqa.Request(os.environ["PYPI"],None, None)
-    print("Downloading .pypirc file")
-    res = reqa.urlopen(req)
-    page = res.read()
-    home = os.path.expanduser('~')
-    pth = os.path.join(home,'.pypirc')
-    with open(pth) as f:
-        f.write(page)
-    print("Wrote .pypirc file")
-
 if __name__ == '__main__':
     import doctest
     import NumRep
