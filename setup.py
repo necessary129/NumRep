@@ -16,13 +16,10 @@ def read_file(fil):
     return a
 
 def getversion():
-    version = []
     fil = read_file('README.rst')
     ver = vre.search(fil)
     vers = ver.group(1)
-    for x in vers.split('.'):
-        version.append(int(x))
-    return version
+    return vers
 
 dct = dict(
     name=NAME,
