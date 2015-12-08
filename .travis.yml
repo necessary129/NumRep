@@ -7,6 +7,12 @@ python:
   - "3.3"
   - "3.4"
 
+install:
+    - "pip install coveralls"
+
 script: 
-    - "python test.py"
-    - "python setup.py check --strict --metadata"
+    - "coverage run test.py"
+    - "coverage run setup.py check --strict --metadata"
+
+after_success:
+  - "coveralls"
