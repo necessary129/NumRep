@@ -35,9 +35,16 @@ This module provides a class to represent the place vaues in a given number, eg:
     This class also provides an all() function, which gives you the real value of the given denomination, 
     eg:
     >>> a = NumRep(1234456789123)
-    >>> a.all('hundreds')
+    >>> a.all(HUNDREDS)
     12344567891
 """
+
+HUNDREDS = 'hundreds'
+THOUSANDS = 'thousands'
+TENS = 'tens'
+ONES = 'ones'
+LAKHS = 'lakhs'
+CRORES = 'crores'
 
 class RepNum(int):
     def GetRep(self):
@@ -132,6 +139,8 @@ class NumRep(object):
     >>> a = NumRep(1234456789123)
     >>> a.all('hundreds')
     12344567891
+    >>> a.all(HUNDREDS)
+    12344567891
 
     """
     __lens = lens = dict(
@@ -202,7 +211,9 @@ class NumRep(object):
         12344567
         >>> a.all('crores')
         123445
-
+        >>> a.all(CRORES)
+        123445
+        
         etc.
 
         """

@@ -4,7 +4,7 @@ NumRep
 .. image:: https://travis-ci.org/necessary129/NumRep.svg
     :target: https://travis-ci.org/necessary129/NumRep
 
-Version: 0.0.1.0
+Version: 0.0.1.1
 
 This module provides a way to represent the place values in a given number, eg:
     >>> a = NumRep(1234456789123)
@@ -49,3 +49,6 @@ This class also provides an all() function, which gives you the real value of th
     >>> a = NumRep(1234456789123)
     >>> a.all('hundreds')
     12344567891
+You can also use the values specified in the module for all(), eg:
+    >>> a.all(CRORES)
+    123445
