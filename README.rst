@@ -3,6 +3,7 @@ NumRep
 
 .. image:: https://travis-ci.org/necessary129/NumRep.svg
     :target: https://travis-ci.org/necessary129/NumRep
+.. image:: https://coveralls.io/repos/necessary129/NumRep/badge.svg?branch=master&service=github :target: https://coveralls.io/github/necessary129/NumRep?branch=master
 
 Version: 0.0.1.1
 
@@ -50,5 +51,6 @@ This class also provides an all() function, which gives you the real value of th
     >>> a.all('hundreds')
     12344567891
 You can also use the values specified in the module for all(), eg:
+    >>> a = NumRep(1234456789123)
     >>> a.all(CRORES)
     123445
