@@ -36,7 +36,7 @@ dct = dict(
     license='2-clause Simplified BSD',
     py_modules=[NAME],
     classifiers=[
-    'Development Status :: 2 - Pre-Alpha',
+    'Development Status :: 3 - Alpha',
     'Environment :: Plugins',
     'Intended Audience :: Customer Service',
     'Intended Audience :: Developers',
