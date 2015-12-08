@@ -40,22 +40,17 @@ You can also do arithmetic operations on them and then use GetRep(), eg:
     NumRep(Tens=1)
 
 You can compare and do arithmetic operations NumReps with integers and also with other NumReps, like:
-    >>> c = NumRep.NumRep(15)
+    >>> c = NumRep(15)
     >>> c
     NumRep(Tens=1,Ones=5)
     >>> c + 10
     NumRep(Tens=2,Ones=5)
-    >>> b = NumRep.NumRep(10)
+    >>> b = NumRep(10)
     >>> b
     NumRep(Tens=1)
     >>> c + b
     NumRep(Tens=2,Ones=5)
 
-This raises TypeError when you give a non-number to it., eg:
-    >>> a = NumRep('notanumber123')
-    Traceback (most recent call last):
-    ...
-    TypeError: Not a valid number
 
 This class also provides an all() function, which gives you the real value of the given denomination, eg:
     >>> a = NumRep(1234456789123)

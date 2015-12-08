@@ -25,12 +25,6 @@ This module provides a class to represent the place vaues in a given number, eg:
         >>> a.ones
         3
 
-    This raises TypeError when you give a non-number to it.
-    eg:
-        >>> a = NumRep('notanumber123')
-        Traceback (most recent call last):
-            ...
-        TypeError: Not a valid number
 
     This class also provides an all() function, which gives you the real value of the given denomination, 
     eg:
@@ -59,18 +53,19 @@ def calc(conv):
         return cls
     return dec
 
-def abpos():
+def abpos(conv):
     def dec(cls):
         funcs = ['__neg__','__pos__','__abs__']
         for f in funcs:
             def func(f):
                 def gen(self):
-                    ret = getattr(int(self),f)()
+                    ret = getattr(conv(self),f)()
                     return cls(ret)
                 return gen
             setattr(cls, f, func(f))
         return cls
     return dec
+
 
 @calc(int)
 class RepNum(int):
@@ -109,12 +104,12 @@ class NumRep(int):
         NumRep(Ones=1)
 
     You can compare and do arithmetic operations NumReps with integers and also with other NumReps, like:
-        >>> c = NumRep.NumRep(15)
+        >>> c = NumRep(15)
         >>> c
         NumRep(Tens=1,Ones=5)
         >>> c + 10
         NumRep(Tens=2,Ones=5)
-        >>> b = NumRep.NumRep(10)
+        >>> b = NumRep(10)
         >>> b
         NumRep(Tens=1)
         >>> c + b
@@ -129,12 +124,6 @@ class NumRep(int):
         >>> (a.crores - 2).GetRep()
         NumRep(Tens=1)
 
-    This raises TypeError when you give a non-number to it.
-    eg:
-        >>> a = NumRep('notanumber123')
-        Traceback (most recent call last):
-            ...
-        TypeError: Not a valid number
 
     This class also provides an all() function, which gives you the real value of the given denomination, 
     eg:
@@ -154,12 +143,12 @@ class NumRep(int):
     tens = 1,
     ones = 9,
     )
+
     def __init__(self, num):
-        
         try:
             num = RepNum(num)
-        except (ValueError, TypeError):
-            raise TypeError("Not a valid number")
+        except TypeError:
+            raise
         self.number = RepNum(num)
         self.crores = RepNum(0)
         self.lakhs = RepNum(0)
