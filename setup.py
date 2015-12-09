@@ -9,7 +9,7 @@ NAME = "NumRep"
 
 import re
 
-vre = re.compile(r"Version: (\d\.\d\.\d\.\d)")
+vre = re.compile(r"Version: ([\d.]+)")
 def read_file(fil):
     with open(fil) as f:
         a = f.read()
@@ -31,7 +31,7 @@ dct = dict(
     url = 'https://github.com/necessary129/NumRep',
     author_email='note@noteness.cf',
     license='2-clause Simplified BSD',
-    py_modules=[NAME],
+    packages=[NAME],
     classifiers=[
     'Development Status :: 3 - Alpha',
     'Environment :: Plugins',

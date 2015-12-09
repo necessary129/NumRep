@@ -15,6 +15,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+from .utils import abpos, calc, RepNum
+
 """
 This module provides a class to represent the place vaues in a given number, eg:
         >>> a = NumRep(1234456789123)
@@ -33,46 +35,7 @@ This module provides a class to represent the place vaues in a given number, eg:
         12344567891
 """
 
-HUNDREDS = 'hundreds'
-THOUSANDS = 'thousands'
-TENS = 'tens'
-ONES = 'ones'
-LAKHS = 'lakhs'
-CRORES = 'crores'
-
-def calc(conv):
-    def dec(cls):
-        funcs = ['__add__','__sub__','__mul__','__radd__','__rsub__','__rmul__','__floordiv__','__truediv__','__mod__','__divmod__']
-        for f in funcs:
-            def func(fff):
-                def gen(self, other):
-                    ret = getattr(conv(self),fff)(other)
-                    return cls(ret)
-                return gen
-            setattr(cls, f, func(f))
-        return cls
-    return dec
-
-def abpos(conv):
-    def dec(cls):
-        funcs = ['__neg__','__pos__','__abs__']
-        for f in funcs:
-            def func(f):
-                def gen(self):
-                    ret = getattr(conv(self),f)()
-                    return cls(ret)
-                return gen
-            setattr(cls, f, func(f))
-        return cls
-    return dec
-
-
-@calc(int)
-class RepNum(int):
-    def GetRep(self):
-        return NumRep(self)
-
-
+@abpos(int)
 @calc(int)
 class NumRep(int):
     """
@@ -220,7 +183,7 @@ class NumRep(int):
         return RepNum(sr[:(-gth)])
 
     def __repr__(self):
-        return "NumRep({0})".format(",".join(self.__li))
+        return "{1}({0})".format(",".join(self.__li),self.__class__.__name__)
 
 if __name__ == '__main__':
     import sys
