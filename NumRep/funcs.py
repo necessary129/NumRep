@@ -17,24 +17,6 @@
 
 from .utils import abpos, calc, RepNum
 
-"""
-This module provides a class to represent the place vaues in a given number, eg:
-        >>> a = NumRep(1234456789123)
-        >>> a
-        NumRep(Crores=123445,Lakhs=67,Thousands=89,Hundreds=1,Tens=2,Ones=3)
-        >>> a.crores
-        123445
-        >>> a.ones
-        3
-
-
-    This class also provides an all() function, which gives you the real value of the given denomination, 
-    eg:
-        >>> a = NumRep(1234456789123)
-        >>> a.all(HUNDREDS)
-        12344567891
-"""
-
 @abpos(int)
 @calc(int)
 class NumRep(int):
@@ -153,7 +135,7 @@ class NumRep(int):
         if self.ones:
             li.append("Ones={0}".format(self.ones))
         self.__li = li
-        super().__init__()
+        super(NumRep, self).__init__()
     def all(self, digit):
         """
         This function returns the original value of the specified denomination in the number specified,
