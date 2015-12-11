@@ -21,6 +21,12 @@ This module provides a way to represent the place values in a given number, eg:
     >>> a.lakhs
     67
 
+This raises TypeError when you give it an invalid number, eg:
+    >>> a = NumRep('notanumber1111')
+    Traceback (most recent call last):
+    ...
+    TypeError: Not a valid Number.
+
 And Every integer in the NumRep has a GetRep() method, which returns the Representation of the number itself, eg:
     >>> a = NumRep(123456789)
     >>> a

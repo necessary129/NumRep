@@ -15,7 +15,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from .utils import abpos, calc, RepNum
+from .utils import abpos, calc
+
+@abpos(int)
+@calc(int)
+class RepNum(int):
+    def GetRep(self):
+        return NumRep(self)
 
 @abpos(int)
 @calc(int)
@@ -60,6 +66,11 @@ class NumRep(int):
         >>> c + b
         NumRep(Tens=2,Ones=5)
 
+    This raises TypeError when you give it an invalid number, eg:
+        >>> a = NumRep('notanumber1111')
+        Traceback (most recent call last):
+        ...
+        TypeError: Not a valid Number.
 
     You can also do arithmetic operations on them and then use GetRep()
     eg:
@@ -85,15 +96,20 @@ class NumRep(int):
     crores =7,
     thousands = 3,
     hundreds = 2,
-    tens = 1,
     ones = 9,
     )
 
-    def __init__(self, num):
+    def __new__(self, num):
+        r = False
         try:
-            num = RepNum(num)
-        except TypeError:
-            raise
+            a = int(num)
+        except Exception as e:
+            r = True
+        if r:
+            raise TypeError("Not a valid Number.")
+        return int.__new__(self, num)
+    def __init__(self, num):
+        num = RepNum(num)
         self.number = RepNum(num)
         self.crores = RepNum(0)
         self.lakhs = RepNum(0)
@@ -166,25 +182,3 @@ class NumRep(int):
 
     def __repr__(self):
         return "{1}({0})".format(",".join(self.__li),self.__class__.__name__)
-
-if __name__ == '__main__':
-    import sys
-    PY2 = sys.version[0] == "2"
-    try:
-        while True:
-            num = None
-            try:
-                if PY2:
-                    num = int(raw_input("Type the number you want to convert: "))
-                else:
-                    num = int(input("Type the number you want to convert: "))
-            except ValueError:
-                print('Not a valid Number')
-                continue
-            if num:
-                print(NumRep(num))
-            else:
-                sys.exit(0)
-    except (KeyboardInterrupt, EOFError):
-        sys.exit(0)
-

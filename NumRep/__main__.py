@@ -15,35 +15,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-def calc(conv):
-    def dec(cls):
-        funcs = ['__add__','__sub__','__mul__','__radd__','__rsub__','__rmul__','__floordiv__',
-        '__truediv__','__mod__','__divmod__','__eq__','__le__','__lt__','__gt__','__ge__','__ne__']
-        for f in funcs:
-            def func(fff):
-                def gen(self, other):
-                    ret = getattr(conv(self),fff)(other)
-                    return cls(ret)
-                return gen
-            setattr(cls, f, func(f))
-        return cls
-    return dec
+from .funcs import NumRep
+import sys
 
-def abpos(conv):
-    def dec(cls):
-        funcs = ['__neg__','__pos__','__abs__']
-        for f in funcs:
-            def func(f):
-                def gen(self):
-                    ret = getattr(conv(self),f)()
-                    return cls(ret)
-                return gen
-            setattr(cls, f, func(f))
-        return cls
-    return dec
-
-@abpos(int)
-@calc(int)
-class RepNum(int):
-    def GetRep(self):
-        return NumRep(self)
+PY2 = sys.version[0] == "2"
+try:
+    while True:
+        num = None
+        try:
+            if PY2:
+                num = int(raw_input("Type the number you want to convert: "))
+            else:
+                num = int(input("Type the number you want to convert: "))
+        except ValueError:
+            print('Not a valid Number')
+            continue
+        if num:
+            print(NumRep(num))
+        else:
+            sys.exit(0)
+except (KeyboardInterrupt, EOFError):
+    sys.exit(0)
