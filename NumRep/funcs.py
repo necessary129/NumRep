@@ -41,6 +41,8 @@ class NumRep(int):
         2
         >>> a.lakhs
         67
+        >>> print(a)
+        123445 Crores, 67 Lakhs, 89 Thousands, 1 Hundred, 2 Tens, 3 Ones
 
     And Every integer in the NumRep has a GetRep() method, which returns the Representation of the number itself,
     eg:
@@ -91,14 +93,24 @@ class NumRep(int):
 
 
     """
-    __lens = lens = dict(
+    _lens = dict(
     lakhs=5,
     crores =7,
     thousands = 3,
     hundreds = 2,
     ones = 9,
     )
-
+    _ones = {
+        1 : "one",
+        2 : "two",
+        3 : "three",
+        4 : "four",
+        5 : "five",
+        6 : "six",
+        7 : "seven",
+        8 : 'eight',
+        9 : 'nine'
+        }
     def __new__(self, num):
         r = False
         try:
@@ -150,7 +162,7 @@ class NumRep(int):
             li.append("Tens={0}".format(self.tens))
         if self.ones:
             li.append("Ones={0}".format(self.ones))
-        self.__li = li
+        self._li = li
         super(NumRep, self).__init__()
     def all(self, digit):
         """
@@ -172,7 +184,7 @@ class NumRep(int):
         etc.
 
         """
-        gth = self.__lens.get(digit, None)
+        gth = self._lens.get(digit, None)
         if not gth:
             raise TypeError("Not a valid denomination")
         sr = str(self.number)
@@ -181,4 +193,14 @@ class NumRep(int):
         return RepNum(sr[:(-gth)])
 
     def __repr__(self):
-        return "{1}({0})".format(",".join(self.__li),self.__class__.__name__)
+        return "{1}({0})".format(",".join(self._li),self.__class__.__name__)
+
+    def __str__(self):
+        li = []
+        for y in self._li:
+            name, val = y.split('=')
+            value = int(val)
+            if value == 1:
+                name = name[:-1]
+            li.append("{0} {1}".format(val,name))
+        return "{0}".format(", ".join(li))

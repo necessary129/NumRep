@@ -20,6 +20,8 @@ This module provides a way to represent the place values in a given number, eg:
     2
     >>> a.lakhs
     67
+    >>> print(a)
+    123445 Crores, 67 Lakhs, 89 Thousands, 1 Hundred, 2 Tens, 3 Ones
 
 This raises TypeError when you give it an invalid number, eg:
     >>> a = NumRep('notanumber1111')

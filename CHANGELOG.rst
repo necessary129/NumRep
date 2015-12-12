@@ -1,3 +1,7 @@
+0.1.1
+ * define a __str__() function
+ * Add a __main__ module
+
 0.1
  * Now can compare and do arithmetic operations on NumRep objects
  * Made NumRep a package
