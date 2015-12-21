@@ -15,14 +15,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from .utils import abpos, calc
+from .utils import *
 
+@dm(int)
 @abpos(int)
 @calc(int)
 class RepNum(int):
     def GetRep(self):
         return NumRep(self)
 
+@dm(int)
 @abpos(int)
 @calc(int)
 class NumRep(int):

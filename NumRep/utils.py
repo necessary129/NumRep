@@ -18,12 +18,25 @@
 def calc(conv):
     def dec(cls):
         funcs = ['__add__','__sub__','__mul__','__radd__','__rsub__','__rmul__','__floordiv__',
-        '__truediv__','__mod__','__divmod__']
+        '__truediv__','__mod__']
         for f in funcs:
             def func(fff):
                 def gen(self, other):
                     ret = getattr(conv(self),fff)(other)
                     return cls(ret)
+                return gen
+            setattr(cls, f, func(f))
+        return cls
+    return dec
+
+def dm(conv):
+    def dec(cls):
+        funcs = ['__divmod__']
+        for f in funcs:
+            def func(fff):
+                def gen(self, other):
+                    mod, m2 = getattr(conv(self),fff)(other)
+                    return (cls(mod),cls(m2))
                 return gen
             setattr(cls, f, func(f))
         return cls
