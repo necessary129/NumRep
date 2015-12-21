@@ -1,6 +1,9 @@
 ChangeLog
 ---------
 
+0.1.3
+ * Another bug fix
+
 0.1.2
  * Fixed a major bug.
 

@@ -4,7 +4,7 @@ NumRep
 .. image:: https://travis-ci.org/necessary129/NumRep.svg
     :target: https://travis-ci.org/necessary129/NumRep
 
-Version: 0.1.2
+Version: 0.1.3
 
 This module provides a way to represent the place values in a given number, eg:
     >>> a = NumRep(1234456789123)
