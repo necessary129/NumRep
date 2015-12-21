@@ -1,3 +1,9 @@
+ChangeLog
+---------
+
+0.1.2
+ * Fixed a major bug.
+
 0.1.1
  * define a __str__() function
  * Add a __main__ module

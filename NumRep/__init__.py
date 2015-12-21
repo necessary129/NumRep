@@ -23,7 +23,9 @@ This module provides a class to represent the place vaues in a given number, eg:
         123445
         >>> a.ones
         3
-
+        >>> print(a)
+        123445 Crores, 67 Lakhs, 89 Thousands, 1 Hundred, 2 Tens, 3 Ones
+        
     You can do arithmetic operations on it too, eg:
         >>> a = NumRep(1234456789123)
         >>> a
