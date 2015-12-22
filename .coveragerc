@@ -1,0 +1,5 @@
+[run]
+source = NumRep
+
+[report]
+omit = */__main__.py
