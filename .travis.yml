@@ -11,6 +11,6 @@ script:
     - "coverage run do_test.py"
     - "coverage run setup.py check --strict --metadata"
 
-after-success:
+after_success:
     - "coveralls"
 
