@@ -9,7 +9,7 @@ python:
 install: "pip install docutils coverage"
 
 script: 
-    - "coverage run test.py"
+    - "coverage run do_test.py"
     - "coverage run setup.py check --strict --metadata"
 
 after-success:
