@@ -2,10 +2,11 @@ language: python
 sudo: false
 
 python:
+  - "3.2"
   - "3.3"
   - "3.4"
 
-install: "pip install docutils coverage"
+install: "pip install docutils coveralls"
 
 script: 
     - "coverage run do_test.py"
