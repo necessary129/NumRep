@@ -19,6 +19,7 @@
 
 import unittest
 from NumRep import NumRep, HUNDREDS, THOUSANDS, CRORES, TENS, ONES, LAKHS
+from NumRep.funcs import RepNum
 
 class Tester(unittest.TestCase):
     def setUp(self):
@@ -225,7 +226,7 @@ class Tester(unittest.TestCase):
         self.assertTrue(a)
 
     def test_abs(self):
-        self.assertEqual(self.numrep, abs(123456789111))
+        self.assertEqual(abs(self.numrep), abs(123456789111))
 
     def test_lt_int(self):
         self.assertTrue(self.numrep < 123456789112)
@@ -282,6 +283,22 @@ class Tester(unittest.TestCase):
             NumRep('11a')
         with self.assertRaisesRegex(TypeError,'Not a valid denomination'):
             self.numrep.all('invalid')
+
+    def test_repnum(self):
+        self.assertIsInstance(self.numrep.crores,RepNum)
+        calcd = self.numrep.crores.GetRep()
+        self.assertIsInstance(calcd,NumRep)
+        self.assertEqual(calcd, 12345)
+        self.assertEqual(calcd.crores, 0)
+        self.assertEqual(calcd.lakhs, 0)
+        self.assertEqual(calcd.thousands, 12)
+        self.assertEqual(calcd.hundreds, 3)
+        self.assertEqual(calcd.tens, 4)
+        self.assertEqual(calcd.ones, 5)
+        self.assertEqual(calcd.number, 12345)
+        self.assertEqual(repr(calcd),'NumRep(Thousands=12,Hundreds=3,Tens=4,Ones=5)')
+        self.assertEqual(str(calcd),'12 Thousands, 3 Hundreds, 4 Tens, 5 Ones')
+
 
 if __name__ == '__main__':
     unittest.main()
