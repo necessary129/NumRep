@@ -100,6 +100,7 @@ class NumRep(int):
     crores =7,
     thousands = 3,
     hundreds = 2,
+    tens=1,
     ones = 9,
     )
     _ones = {
