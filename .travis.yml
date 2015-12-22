@@ -8,8 +8,8 @@ python:
 install: "pip install docutils coveralls"
 
 script: 
-    - "coverage run do_test.py"
-    - "coverage run setup.py check --strict --metadata"
+    - "coverage run --source=NumRep do_test.py"
+    - "coverage run --source=NumRep setup.py check --strict --metadata"
 
 after_success:
     - "coveralls"
