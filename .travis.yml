@@ -6,9 +6,12 @@ python:
   - "3.3"
   - "3.4"
 
-install: "pip install docutils"
+install: "pip install docutils coverage"
 
 script: 
-    - "python test.py"
-    - "python setup.py check --strict --metadata"
+    - "coverage run test.py"
+    - "coverage run setup.py check --strict --metadata"
+
+after-success:
+    - "coveralls"
 
