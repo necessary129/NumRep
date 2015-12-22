@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
-from setuptools.command.test import test as TestCommand
-from setuptools import setup
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
 
 NAME = "NumRep"
 
@@ -19,16 +21,6 @@ def getversion():
     vers = ver.group(1)
     return vers
 
-class PyTest(TestCommand):
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        self.test_args = []
-        self.test_suite = True
-
-    def run_tests(self):
-        from tests.do_test import run
-        run()
-
 dct = dict(
     name=NAME,
     version=getversion(),
@@ -40,8 +32,6 @@ dct = dict(
     author_email='note@noteness.cf',
     license='2-clause Simplified BSD',
     packages=[NAME],
-    cmdclass={'test': PyTest},
-    tests_require=['docutils'],
     classifiers=[
     'Development Status :: 3 - Alpha',
     'Environment :: Plugins',
