@@ -1,6 +1,6 @@
 from test import support as s
-from tests.testv2 import Tester
-from tests.test_rst import runt
+from .testv2 import Tester
+from .test_rst import runt
 
 def testmod(mod):
     import doctest
@@ -24,7 +24,7 @@ def main():
         if not test:
             sys.exit(1)
 
-if __name__ == '__main__':
+def run():
     main()
     s.run_unittest(Tester)
     runt('README.rst')

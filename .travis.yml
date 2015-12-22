@@ -5,11 +5,11 @@ python:
   - "3.3"
   - "3.4"
 
-install: "pip install docutils coveralls"
+install: "pip install docutils coveralls setuptools"
 
 script: 
     - "python setup.py check --strict --metadata"
-    - "coverage run do_test.py"
+    - "coverage run setup.py test"
 
 after_success:
     - "coveralls"
