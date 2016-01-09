@@ -286,6 +286,11 @@ class Tester(unittest.TestCase):
 
     def test_repnum(self):
         self.assertIsInstance(self.numrep.crores,RepNum)
+        self.assertIsInstance(self.numrep.lakhs,RepNum)
+        self.assertIsInstance(self.numrep.thousands,RepNum)
+        self.assertIsInstance(self.numrep.hundreds,RepNum)
+        self.assertIsInstance(self.numrep.tens,RepNum)
+        self.assertIsInstance(self.numrep.ones,RepNum)
         calcd = self.numrep.crores.GetRep()
         self.assertIsInstance(calcd,NumRep)
         self.assertEqual(calcd, 12345)
