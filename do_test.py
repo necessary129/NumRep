@@ -1,6 +1,7 @@
 from test import support as s
 from tests.testv2 import Tester
 from tests.test_rst import runt
+import sys
 
 def testmod(mod):
     import doctest
