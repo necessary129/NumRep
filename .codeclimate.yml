@@ -1,4 +1,9 @@
 engines:
+  radon:
+    enabled: true
+    checks:
+      Complexity:
+        enabled: false
   duplication:
     enabled: true
     config:
@@ -16,3 +21,4 @@ ratings:
 exclude_paths:
  - tests/**/*
  - "do_test.py"
+
