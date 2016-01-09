@@ -1,0 +1,18 @@
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - python
+  fixme:
+    enabled: true
+  radon:
+    enabled: true
+ratings:
+  paths:
+  - "NumRep/**.py"
+  - "**.py"
+
+exclude_paths:
+ - tests/**/*
+ - "do_test.py"
