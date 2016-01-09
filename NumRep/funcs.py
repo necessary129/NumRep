@@ -132,6 +132,27 @@ class NumRep(int):
         self.hundreds = RepNum(0)
         self.tens = RepNum(0)
         self.ones = RepNum(0)
+        self.do_calc(num)
+        super(NumRep, self).__init__()
+
+    @property
+    def _li(self):
+        li = []
+        if self.crores:
+            li.append("Crores={0}".format(self.crores))
+        if self.lakhs:
+            li.append("Lakhs={0}".format(self.lakhs))
+        if self.thousands:
+            li.append("Thousands={0}".format(self.thousands))
+        if self.hundreds:
+            li.append("Hundreds={0}".format(self.hundreds))
+        if self.tens:
+            li.append("Tens={0}".format(self.tens))
+        if self.ones:
+            li.append("Ones={0}".format(self.ones))
+        return li
+
+    def do_calc(self, num):
         for time in range(1,9):
             mod = num % 10
             if time == 1:
@@ -152,21 +173,7 @@ class NumRep(int):
                 self.crores = RepNum(num)
             num -= mod
             num = num/10
-        li = []
-        if self.crores:
-            li.append("Crores={0}".format(self.crores))
-        if self.lakhs:
-            li.append("Lakhs={0}".format(self.lakhs))
-        if self.thousands:
-            li.append("Thousands={0}".format(self.thousands))
-        if self.hundreds:
-            li.append("Hundreds={0}".format(self.hundreds))
-        if self.tens:
-            li.append("Tens={0}".format(self.tens))
-        if self.ones:
-            li.append("Ones={0}".format(self.ones))
-        self._li = li
-        super(NumRep, self).__init__()
+
     def all(self, digit):
         """
         This function returns the original value of the specified denomination in the number specified,
